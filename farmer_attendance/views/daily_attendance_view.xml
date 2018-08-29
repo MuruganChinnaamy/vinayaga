@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		
+		<record id="view_daily_attendance_form" model="ir.ui.view">
+			<field name="name">view.daily.attendance.form</field>
+			<field name="model">daily.attendance</field>
+			<field name="arch" type="xml">
+				<form string="Farmer's Daily Attendance">
+					<header>
+						<button name="button_confirm" string="Confirm" states="draft" type="object" class="oe_highlight" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1" />
+					</header>
+					<sheet>
+						
+						<group>
+							<group>
+								<field name="company_id" options="{'no_create':True, 'no_create_and_edit':True, 'no_open':True}"/>
+								<field name="area_id" />
+								<field name="buying_supervisor" />
+								<field name="buying_assistant" />
+							</group>
+							<group>
+								<field name="attendance_date"/>
+								<field name="vehicle_no" />
+								<field name="opening_km" />
+								<field name="closing_km" />
+							</group>
+						</group>
+						
+						
+						<notebook>
+							<page string="Farmer's Attendance Line">
+								<field name="lines">
+									<tree editable="bottom">
+										<field name="attendance_id" invisible="1" />
+										<field name="farmer_id" />
+										<field name="village_id" />
+										<field name="first_grade" />
+										<field name="second_grade" />
+										<field name="third_grade" />
+										<field name="fourth_grade" />
+										<field name="fifth_grade" />
+										<field name="six_grade" />
+										<field name="total" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+    
+        <record id="view_daily_attendance_tree" model="ir.ui.view">
+            <field name="name">view.daily.attendance.tree</field>
+            <field name="model">daily.attendance</field>
+            <field name="arch" type="xml">
+                 <tree string="Farmer's Daily Attendance">
+                 	<field name="attendance_date"/>
+                    <field name="company_id" />
+					<field name="area_id" />
+					<field name="buying_supervisor" />
+					<field name="buying_assistant" />
+					<field name="vehicle_no" />
+					<field name="opening_km" />
+					<field name="closing_km" />
+					<field name="total_first_grade" />
+					<field name="total_second_grade" />
+					<field name="total_third_grade" />
+					<field name="total_fourth_grade" />
+					<field name="total_fifth_grade" />
+					<field name="total_six_grade" />
+					<field name="total" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>    
+    
+        <record id="action_daily_attendance" model="ir.actions.act_window">
+            <field name="name">Farmer's Daily Attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.attendance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>    
+    
+    	<menuitem id="menu_action_attendance" name="Attendance" sequence="1"/>
+        <menuitem id="menu_action_daily_attendance" parent="menu_action_attendance" action="action_daily_attendance" name="Farmer's Daily Attendance" sequence="1"/>
+
+	</data>
+</odoo>

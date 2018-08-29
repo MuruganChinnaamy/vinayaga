@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+        <!-- Set INR currency active -->
+        <record id="base.INR" model="res.currency">
+            <field name="active" eval="True"/>
+            <field name="position">before</field>
+        </record>
+        
+        <!-- Set USD and EUR inactive -->
+        <record id="base.USD" model="res.currency">
+        	<field name="active" eval="False"/>
+        </record>
+        
+        <record id="base.EUR" model="res.currency">
+        	<field name="active" eval="False"/>
+        </record>
+        <!-- End -->		
+		
+	</data>
+</openerp>

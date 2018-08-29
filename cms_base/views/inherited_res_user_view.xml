@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="view_pappaya_users_tree" model="ir.ui.view">
+			<field name="name">res.users.tree.pappaya</field>
+			<field name="model">res.users</field>
+			<field name="arch" type="xml">
+				<tree string="Users" colors="red:id == uid;">
+					<field name="name" />
+					<field name="login" string="Login ID"/>
+					<field name="date_of_joining" />
+       				<field name="mobile" />
+       				<field name="email" required="1"/>
+                    <field name="login_date"/>
+                    <field name="active"/>
+                    <!-- <field name="type" /> -->
+	                <field name="company_id" string="Organization" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_pappaya_users_form" model="ir.ui.view">
+            <field name="name">res.users.form.pappaya</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Users">
+                    <header>
+                        <button string="Change Password" type="action" name="%(base.change_password_wizard_action)d" help="Change the user password."/>
+                    </header>
+                    <sheet>
+                        <field name="id" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                                <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options='{"preview_image": "image_medium"}' />
+                        <div class="oe_title" style="min-width: 650px;">
+                        	<label for="name" string="Name"/>
+                            <h1><table>
+                                <tr>
+                                <td><field name="name" required="1" placeholder="First Name" style="padding-right:6px" /></td>
+                                <td><field name="middle_name" placeholder="Middle Name" style="padding-right:6px" /></td>
+                                <td><field name="last_name" placeholder="Last Name" style="padding-right:6px" /></td>
+                                </tr>
+                                </table>
+                            </h1>
+                            <field name="email" invisible="1"/>
+                            <label for="login" string="Login ID"/>
+                            <h2><field name="login" on_change="on_change_login(login)" style="max-width: 185px;"/></h2>
+                        </div>
+                        <notebook colspan="4">
+                        	<page string="Basic Information">
+                        		<group>
+                        			<group>
+		                        		<label for="street" string="Address"/>
+		                                <div class="o_address_format">
+		                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+		                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+		                                    <field name="city" placeholder="City/Taluk/Mandal" class="o_address_city"/>
+		                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True,'no_create':True}" />
+		                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+		                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True,'no_create':True}" />
+		                                </div>
+	                                </group>
+                        			<group>
+                        				<field name="gender" widget="radio" options="{'horizontal': true}"/>
+                        				<field name="birth_date" />
+                        				<field name="date_of_joining" />
+                                        <label for="phone" string="Phone" />
+										<div class="o_address_format">
+											<field name="phone_country_code" style="max-width: 30px;" class="o_address_city"/>
+											<field name="phone" placeholder="Phone" class="o_address_city" required="1" />
+										</div>
+					                    <label for="mobile" string="Mobile" />
+										<div class="o_address_format">
+											<field name="mobile_country_code" style="max-width: 30px;" class="o_address_city"/><field name="mobile" placeholder="Mobile" class="o_address_city" />
+										</div>
+                        				<field name="email" required="1"/>
+                        			</group>
+                                </group>
+                        	</page>
+                            <page name="access_rights" string="Access Rights">
+                            	<group>
+	                                <group>
+	                                	<field name="super_admin" invisible="1"/>
+	                               		<field name="company_type" invisible="1"/>
+	                                	<!-- <field name="type" widget="radio" required="1" options="{'horizontal': true}"/> -->
+	                                	
+	                                	<field string="Organization" name="company_ids" required="1" widget="many2many_tags" 
+	                                		 options="{'no_open': True,'no_create':True}"/>
+                                    	<field string="Current Company" name="company_id" invisible="1" context="{'user_preference': 0}" options="{'no_open': True,'no_create':True}"/>
+	                                </group>
+	                                <group/>
+                                </group>
+								
+								
+                            </page>
+                            <page string="Preferences" invisible="1">
+                                <group>
+                                    <group string="Localization" name="preferences">
+                                        <field name="lang"/>
+                                        <field name="tz" widget="timezone_mismatch" options="{'tz_offset_field': 'tz_offset'}" />
+                                        <field name="tz_offset" invisible="1"/>
+                                    </group>
+                                    <group/>
+                                    <!-- <group string="Menus Customization" groups="base.group_no_one">
+                                        <field name="action_id"/>
+                                    </group> -->
+                                </group>
+                                <group string="Messaging and Social" name="messaging">
+                                    <field name="signature"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pappaya_users_search" model="ir.ui.view">
+            <field name="name">res.users.search.pappaya</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="name" filter_domain="['|', '|', ('name','ilike',self), ('login','ilike',self), ('email','ilike',self)]" string="User"/>
+                    <field name="login" string="Username"/>
+                    <field name="email" />
+                    <field name="share"/>
+                    <separator />
+                    <filter name="no_share" string="Active Users" domain="[('share','=',False)]"/>
+                    <filter name="Inactive" string="Inactive Users" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_type" string="Type" context="{'group_by':'type'}"/>
+                        <filter name="group_by_school_id" string="Organization" context="{'group_by':'school_id'}"/>
+                        <separator />
+                        <filter name="group_by_city" string="City" context="{'group_by':'city'}"/>
+                        <filter name="group_by_state_id" string="State" context="{'group_by':'state_id'}"/>
+                        <filter name="group_by_country_id" string="Country" context="{'group_by':'country_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="pappaya_users_action" model="ir.actions.act_window">
+			<field name="name">Users</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.users</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+<!-- 			<field name="domain">[('id','!=',1)]</field>
+ -->			<field name="search_view_id" ref="view_pappaya_users_search"/>
+			<field name="view_ids"
+				eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_users_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_users_form')})]" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Users.
+				</p>
+			</field>
+		</record>
+        
+		
+		<record id="view_users_form_inherited_pappaya_gems1" model="ir.ui.view">
+			<field name="name">res.users.inherited.pappaya_crm</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form" />
+			<field name="arch" type="xml">
+				<xpath expr='//label[@for="login"]' position="attributes">
+					<attribute name="string">Username</attribute> 
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_users_tree_inherited_pappaya_gems" model="ir.ui.view">
+			<field name="name">res.users.inherited.pappaya_crm</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_tree" />
+			<field name="arch" type="xml">
+				<xpath expr='//field[@name="login"]' position="attributes">
+					<attribute name="string">Username</attribute> 
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- <menuitem name="Dashboard" id="erp_admin_dashboard" action="board.open_board_my_dash_action" sequence="-1"/> -->
+
+        <!-- <menuitem id="menu_pappaya_master_base" name="Administration" sequence="0" />
+            Administration Sub-Menu - BEGINS
+            <menuitem name="Organizations" id="menu_pappaya_master_company_configuration" parent="menu_pappaya_master_base" action="pappaya_company_action" sequence="0" />
+            <menuitem name="Users" id="menu_pappaya_master_users_configuration" parent="menu_pappaya_master_base" action="pappaya_users_action" sequence="1"
+                /> -->
+		
+	</data>
+</openerp>

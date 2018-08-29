@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--GEMS Modern Academy Gurgoan School-->
+        <record id="email_template_modern_academy" model="pappaya.email.template">
+            <field name="school_id">6</field>
+            <field name="name">Absentees Notification Template</field>
+            <field name="subject">Please Enter the Subject</field>
+            <field name="description">Please Enter the Mail Content</field>
+        </record>
+
+        <!--GIS Palam Vihar Gurgaon School-->
+        <record id="email_template_palam_vihar" model="pappaya.email.template">
+            <field name="school_id">11</field>
+            <field name="name">Absentees Notification Template</field>
+            <field name="subject">Please Enter the Subject</field>
+            <field name="description">Please Enter the Mail Content</field>
+        </record>
+        
+    </data>
+</openerp>

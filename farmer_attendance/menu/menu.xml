@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_pappaya_master_base" name="Administration" sequence="0" />
+            <!--Administration Sub-Menu - BEGINS-->
+            <menuitem name="Organizations" id="menu_pappaya_master_company_configuration" parent="menu_pappaya_master_base" action="pappaya_company_action" sequence="0"
+               />
+            <menuitem name="Users" id="menu_pappaya_master_users_configuration" parent="menu_pappaya_master_base" action="pappaya_users_action" sequence="1"
+                />
+
+    </data>
+</odoo>

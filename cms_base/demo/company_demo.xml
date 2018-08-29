@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+		
+		<!-- For Dis Company partner -->
+		<record id="base.main_partner" model="res.partner">
+            <field name="name">GEMS International School Pvt. Ltd.</field>
+            <field name="street">Block C-2</field>
+            <field name="street2">Palam Vihar, Gurgaon</field>
+            <field name="city">Haryana</field>
+            <field name="zip">122015</field>
+            <field name="state_id" ref="pappaya_core.res_country_state_35"/>
+            <field name='country_id' ref='base.in'/>
+            <field name="email">enquiry.gispalamvihar@gemsindia.co.in</field>
+            <field name="website">www.gemsinternationalschool-palamvihar.com</field>
+        </record>
+		
+		<!-- Changing company data -->
+            <record id="base.main_company" model="res.company">
+            <field name="name">GEMS Education,India</field>
+            <!-- <field name="state_code">124</field> -->
+            <field name="phone">1244841060</field>
+            <field name="website">www.gemseducation.com</field>
+            <field name="street">310-311,Tower C, Unitech Business Zone</field>
+            <field name="street2">Nirvana Country, Sector 50</field>
+            <field name="city">Haryana</field>
+            <field name="zip">122018</field>
+            <field name="type">corporate</field>
+            <field name="code">GEMS</field>
+            <field name="country_id" ref="base.in"/>
+            <field name="state_id" ref="pappaya_core.res_country_state_35"/>
+            <field name="email">info@gems.com</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="parent_company" eval="True"/>
+            <field name="rml_header1">GEMS Education,India.</field>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="photo" type="base64" file="pappaya_core/static/description/company_logo.png" />
+        </record>
+        
+        <!-- DIS Super Admin -->
+        <record model="res.partner" id="base_gems_super_admin">
+            <field name="name">GEMS Admin</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="email">info@gems.com</field>
+        </record>	
+        <record model="res.users" id="base_gems_super_admin_user_root">
+        	<field name="name">GEMS Admin</field>
+            <field name="login">gemsadmin</field>
+            <field name="password">Gemsindia</field>
+            <field name="super_admin" eval="True"/>
+            <field name="partner_id" ref="base_gems_super_admin"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(4, ref('base.main_company'))]"/>
+            <field name="school_id" ref="base.main_company"/>
+            <field name="type">corporate</field>
+            <field name="corporate_erp_admin" eval="True"/>
+            <field name="corporate_finance_manager" eval="True"/>
+            <field name="corporate_education_manager" eval="True"/>
+            <field name="corporate_hr_manager" eval="True"/>
+            <field name="corporate_business_head" eval="True"/>
+            <field name="corporate_operational_head" eval="True"/>
+            <field name="school_erp_admin" eval="True"/>
+            <field name="school_pre" eval="True"/>
+            <field name="school_registrar" eval="True"/>
+            <field name="school_accountant" eval="True"/>
+            <field name="school_cashier" eval="True"/>
+            <field name="school_principal" eval="True"/>
+            <field name="school_transport_incharge" eval="True"/>
+            <field name="school_teacher" eval="True"/>
+            <field name="school_operation_manager" eval="True"/>
+            <field name="school_librarian" eval="True"/>
+            <field name="school_lesson_plan_manager" eval="True"/>
+            <field name="school_department_hod" eval="True"/>
+            <field name="parent_group" eval="True"/>
+        </record>
+
+        <!-- Set Multi Companies by default for dis super admin user and Pappaya Super Admin -->
+		<record model="res.groups" id="base.group_multi_company">
+            <field name="name">Multi Companies</field>
+            <field name="users" eval="[(4, ref('base.user_root')),
+                                        (4, ref('pappaya_core.base_gems_super_admin_user_root'))]"/>
+            <field name="category_id" ref="base.module_category_extra"/>
+        </record>
+        <!-- End -->
+        
+        <!-- Purpose: Configuring 'India' Country as active and default for entire application. -->
+		<record id="base.in" model="res.country">
+            <field eval="True" name="is_active" />
+        </record>
+        
+        <!-- Purpose: Changing date format as 'date-month-year' instead of 'month-date-year' -->
+        <record id="base.lang_en" model="res.lang">
+        	<field name="date_format">%d/%m/%Y</field>
+        </record>
+        
+        <!-- Purpose: Configuring report paper format. 
+        	 Changing margin_top form 40 to 10 and margin_bottom from 20 to 10. -->
+        <record id="report.paperformat_euro" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_euro_landscape" model="report.paperformat">
+            <field name="name">European A4 - Landscape Custom</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_euro_portrait" model="report.paperformat">
+            <field name="name">European A4 - Portrait Custom</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        
+	</data>
+</openerp>
