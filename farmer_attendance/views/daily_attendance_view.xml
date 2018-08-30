@@ -21,7 +21,7 @@
 								<field name="buying_assistant" />
 							</group>
 							<group>
-								<field name="attendance_date"/>
+								<field name="attendance_date" required="1"/>
 								<field name="vehicle_no" />
 								<field name="opening_km" />
 								<field name="closing_km" />

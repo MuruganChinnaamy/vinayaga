@@ -45,7 +45,14 @@ class DailyAttendanceLine(models.Model):
     fourth_grade = fields.Float('Fourth Grade KG')
     fifth_grade = fields.Float('Fifth Grade KG')
     six_grade = fields.Float('Six Grade KG')
-    total = fields.Float('Total')
+    total = fields.Float(string='Total', compute="_get_lines_total")
+    
+    @api.depends('first_grade','second_grade','third_grade','fourth_grade','fifth_grade','six_grade')
+    def _get_lines_total(self):
+        for record in self:
+            record.total = record.first_grade + record.second_grade + record.third_grade \
+            + record.fourth_grade + record.fifth_grade + record.six_grade
+                            
     
     
     
