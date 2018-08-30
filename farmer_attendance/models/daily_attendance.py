@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 import re
 from datetime import date, timedelta as td
+import string
 
 class DailyAttendance(models.Model):
     _name='daily.attendance'
@@ -21,13 +22,73 @@ class DailyAttendance(models.Model):
     closing_km = fields.Float(string='Closing K.M.')
     
     # Total KG
-    total_first_grade = fields.Float('First Grade KG')
-    total_second_grade = fields.Float('Second Grade KG')
-    total_third_grade = fields.Float('Third Grade KG')
-    total_fourth_grade = fields.Float('Fourth Grade KG')
-    total_fifth_grade = fields.Float('Fifth Grade KG')
-    total_six_grade = fields.Float('Six Grade KG')
-    total = fields.Float('Total')
+    total_first_grade = fields.Float('First Grade KG',compute="_get_total_first_grade")
+    total_second_grade = fields.Float('Second Grade KG',compute="_get_total_second_grade")
+    total_third_grade = fields.Float('Third Grade KG',compute="_get_total_third_grade")
+    total_fourth_grade = fields.Float('Fourth Grade KG',compute="_get_total_fourth_grade")
+    total_fifth_grade = fields.Float('Fifth Grade KG',compute="_get_total_fifth_grade")
+    total_six_grade = fields.Float('Six Grade KG',compute="_get_total_six_grade")
+    total = fields.Float(string='Total',compute="_get_total_grade")
+    
+    
+    @api.depends('lines')
+    def _get_total_first_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.first_grade
+            record.total_first_grade = total
+    
+    @api.depends('lines')
+    def _get_total_second_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.second_grade
+            record.total_second_grade = total
+            
+            
+    @api.depends('lines')
+    def _get_total_third_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.third_grade
+            record.total_third_grade = total
+            
+            
+    @api.depends('lines')
+    def _get_total_fourth_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.fourth_grade
+            record.total_fourth_grade = total
+                
+    
+    @api.depends('lines')
+    def _get_total_fifth_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.fifth_grade
+            record.total_fifth_grade = total
+            
+    @api.depends('lines')
+    def _get_total_six_grade(self):
+        for record in self:
+            total = 0.00
+            for line in record.lines:
+                total += line.six_grade
+            record.total_six_grade = total        
+    
+    @api.depends('lines')        
+    def _get_total_grade(self):
+        for record in self:
+            record.total = record.total_first_grade + record.total_second_grade + record.total_third_grade \
+            + record.total_fourth_grade + record.total_fifth_grade + record.total_six_grade
+        
+    
     
     
 

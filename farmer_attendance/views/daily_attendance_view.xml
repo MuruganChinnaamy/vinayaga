@@ -27,6 +27,22 @@
 								<field name="closing_km" />
 							</group>
 						</group>
+						<group>
+							<group>
+								<field name="total_first_grade" />
+								
+								<field name="total_third_grade" />
+								
+								<field name="total_fifth_grade" />
+								
+								<field name="total" />
+							</group>
+							<group>
+								<field name="total_second_grade" />
+								<field name="total_fourth_grade" />
+								<field name="total_six_grade" />
+							</group>
+						</group>
 						
 						
 						<notebook>
