@@ -2,8 +2,8 @@
 <openerp>
 	<data>
 		
-		<record id="view_pappaya_users_tree" model="ir.ui.view">
-			<field name="name">res.users.tree.pappaya</field>
+		<record id="view_cms_users_tree" model="ir.ui.view">
+			<field name="name">res.users.tree.cms</field>
 			<field name="model">res.users</field>
 			<field name="arch" type="xml">
 				<tree string="Users" colors="red:id == uid;">
@@ -20,8 +20,8 @@
 			</field>
 		</record>
 		
-		<record id="view_pappaya_users_form" model="ir.ui.view">
-            <field name="name">res.users.form.pappaya</field>
+		<record id="view_cms_users_form" model="ir.ui.view">
+            <field name="name">res.users.form.cms</field>
             <field name="model">res.users</field>
             <field name="arch" type="xml">
                 <form string="Users">
@@ -119,8 +119,8 @@
             </field>
         </record>
         
-        <record id="view_pappaya_users_search" model="ir.ui.view">
-            <field name="name">res.users.search.pappaya</field>
+        <record id="view_cms_users_search" model="ir.ui.view">
+            <field name="name">res.users.search.cms</field>
             <field name="model">res.users</field>
             <field name="arch" type="xml">
                 <search string="Users">
@@ -143,18 +143,18 @@
             </field>
         </record>
         
-        <record id="pappaya_users_action" model="ir.actions.act_window">
+        <record id="cms_users_action" model="ir.actions.act_window">
 			<field name="name">Users</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">res.users</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 <!-- 			<field name="domain">[('id','!=',1)]</field>
- -->			<field name="search_view_id" ref="view_pappaya_users_search"/>
+ -->			<field name="search_view_id" ref="view_cms_users_search"/>
 			<field name="view_ids"
 				eval="[(5, 0, 0),
-                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_pappaya_users_tree')}),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_users_form')})]" />
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_cms_users_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_cms_users_form')})]" />
 			<field name="help" type="html">
 				<p class="oe_view_nocontent_create">
 					Click to add a new Users.
@@ -163,8 +163,8 @@
 		</record>
         
 		
-		<record id="view_users_form_inherited_pappaya_gems1" model="ir.ui.view">
-			<field name="name">res.users.inherited.pappaya_crm</field>
+		<record id="view_users_form_inherited_cms_gems1" model="ir.ui.view">
+			<field name="name">res.users.inherited.cms_crm</field>
 			<field name="model">res.users</field>
 			<field name="inherit_id" ref="base.view_users_form" />
 			<field name="arch" type="xml">
@@ -174,8 +174,8 @@
 			</field>
 		</record>
 		
-		<record id="view_users_tree_inherited_pappaya_gems" model="ir.ui.view">
-			<field name="name">res.users.inherited.pappaya_crm</field>
+		<record id="view_users_tree_inherited_cms_gems" model="ir.ui.view">
+			<field name="name">res.users.inherited.cms_crm</field>
 			<field name="model">res.users</field>
 			<field name="inherit_id" ref="base.view_users_tree" />
 			<field name="arch" type="xml">
@@ -185,13 +185,7 @@
 			</field>
 		</record>
 		
-		<!-- <menuitem name="Dashboard" id="erp_admin_dashboard" action="board.open_board_my_dash_action" sequence="-1"/> -->
-
-        <!-- <menuitem id="menu_pappaya_master_base" name="Administration" sequence="0" />
-            Administration Sub-Menu - BEGINS
-            <menuitem name="Organizations" id="menu_pappaya_master_company_configuration" parent="menu_pappaya_master_base" action="pappaya_company_action" sequence="0" />
-            <menuitem name="Users" id="menu_pappaya_master_users_configuration" parent="menu_pappaya_master_base" action="pappaya_users_action" sequence="1"
-                /> -->
+		
 		
 	</data>
 </openerp>

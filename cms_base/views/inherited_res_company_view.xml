@@ -4,8 +4,8 @@
 		
 		
 		
-		<record id="view_pappaya_company_form" model="ir.ui.view">
-            <field name="name">res.pappaya.company.form</field>
+		<record id="view_cms_company_form" model="ir.ui.view">
+            <field name="name">res.cms.company.form</field>
             <field name="model">res.company</field>
             <field name="inherit_id" ref="base.view_company_form" />
             <field name="arch" type="xml">
@@ -22,7 +22,7 @@
 		
 		
 		
-		<record id="pappaya_company_action" model="ir.actions.act_window">
+		<record id="cms_company_action" model="ir.actions.act_window">
 			<field name="name">Organizations</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">res.company</field>
@@ -32,7 +32,7 @@
  -->			<field name="view_ids"
 				eval="[(5, 0, 0),
 							(0, 0, {'view_mode': 'tree', 'view_id': ref('base.view_company_tree')}),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_pappaya_company_form')})]" />
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_cms_company_form')})]" />
 			<field name="help" type="html">
 				<p class="oe_view_nocontent_create">
 					Click to add a new Organizations.

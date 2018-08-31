@@ -10,13 +10,14 @@
     'description': """
         Description    ======
     """,
-    'author': 'Think42Labs',
-    'website': 'http://www.cmshitech.com',
-    'depends': ['base'],
+    'author': 'CMS Tech',
+    'website': 'http://www.cmstech.com',
+    'depends': ['base','hr'],
     'data': [
         
         'views/inherited_res_company_view.xml',
         'views/inherited_res_user_view.xml',
+        'views/village_view.xml',
         'menu/menu.xml'
         
     ],
