@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_other_allowance_and_deduction_form" model="ir.ui.view">
+	          <field name="name">view.other.allowance.and.dedution.form</field>
+	          <field name="model">other.allowance.and.deduction</field>
+	          <field name="type">form</field>
+	          <field name="arch" type="xml">
+	          <form string='Other Allowance and Dedution'>
+	          		<header>
+	          			<button name="button_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+						<button name="button_reset" states="done,archived" string="Reset" type="object" class="oe_highlight"/>
+						<button name="button_archive" states="done" string="Archive" type="object" class="oe_highlight"/>
+						<field name="state" widget="statusbar"/>						
+					</header>
+					<sheet>
+					<group>
+						<group>
+							<field name="date_from"/>
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="date_to"/>
+							<field name="salary_rule_id" domain="[('category_id.name','in', ['Allowance','Deduction'])]" options="{'no_create' : True}"/>
+							<field name="allowance_or_deduction" invisible="1"/>
+						</group>
+					</group>
+	          		<notebook>
+		          		<page string="Allowance and Deduction Lines">
+		          			<field name="other_allowance_and_deduction_line">
+		          				<tree editable="bottom">
+		          					<field name="employee_id" required="1"/>
+		          					<field name="amount"/>
+		          					<field name="state" invisible="1"/>
+		          					<field name="description"/>	
+		          					<field name="other_allowance_and_deduction_id" invisible="1"/>
+		          				</tree>
+		          			</field>
+		              	</page>
+		              	<page string="Change Log">
+		              		<field name="other_allowance_and_deduction_log">
+		          				<tree editable="bottom">
+		          					<field name="user_id"/>
+		          					<field name="activity_time"/>
+		          					<field name="state_from"/>
+		          					<field name="other_allowance_and_deduction_id" invisible="1"/>
+		          				</tree>
+		          			</field>
+		              	</page>
+	              	</notebook>
+	            </sheet>
+	          	</form>
+			  </field>
+		</record>
+		
+		<record id="view_other_allowance_and_deduction_tree" model="ir.ui.view">
+	          <field name="name">view.other.allowance.and.deduction.tree</field>
+	          <field name="model">other.allowance.and.deduction</field>
+	          <field name="type">tree</field>
+	          <field name="arch" type="xml">
+	          	<tree string='Other Allowance and Deduction List'>
+	          		<field name="date_from"/>
+	          		<field name="date_to"/>
+	          		<field name="salary_rule_id"/>
+	       			<field name="state"/>	
+	          	</tree>
+			  </field>
+		</record>		
+		
+	    <record id="action_other_allowance_and_deduction" model="ir.actions.act_window">
+	        <field name="name">Allowance and Deduction</field>
+	        <field name="res_model">other.allowance.and.deduction</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="view_id" ref="view_other_allowance_and_deduction_tree"/>
+	    </record>
+
+        <menuitem id="menu_other_allowance_and_deduction" action="action_other_allowance_and_deduction" name="allowance and deduction" parent="hr_payroll.menu_hr_payroll_root" sequence="15" groups="hr.group_hr_user"/>
+    
+    
+
+    </data>
+</odoo>
