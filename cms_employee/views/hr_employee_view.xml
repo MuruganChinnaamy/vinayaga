@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_employee_inherit_form_view">
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            <field name="category_ids" position="after">
+	       		<group name="Farmer Details">
+		       		<group>
+		       			<field name="employee_id" />
+		        		<field name="employee_type" required="1"/>
+		        		<field name="branch_id" domain="[('parent_id','!=',False)]" required="1" />
+		        		<field name="village_id" required="1"/>
+		        		<field name="field_officers" widget="many2many_tags" required="1"/>
+		       		</group>
+	       		</group>
+	       	</field>
+            </field>
+        </record>
+    </data>
+</odoo>
