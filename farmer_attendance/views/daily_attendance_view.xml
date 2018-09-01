@@ -16,7 +16,7 @@
 						<group>
 							<group>
 								<field name="company_id" required="1" options="{'no_create':True, 'no_create_and_edit':True, 'no_open':True}"/>
-								<field name="area_id" required="1"/>
+								<field name="village_ids" widget="many2many_tags" required="1"/>
 								<field name="buying_supervisor" required="1"/>
 								<field name="buying_assistant" required="1"/>
 							</group>
@@ -51,7 +51,6 @@
 									<tree editable="bottom">
 										<field name="attendance_id" invisible="1" />
 										<field name="farmer_id" />
-										<field name="village_id" />
 										<field name="first_grade" />
 										<field name="second_grade" />
 										<field name="third_grade" />
@@ -75,7 +74,6 @@
                  <tree string="Farmer's Daily Attendance">
                  	<field name="attendance_date"/>
                     <field name="company_id" />
-					<field name="area_id" />
 					<field name="buying_supervisor" />
 					<field name="buying_assistant" />
 					<field name="vehicle_no" />
