@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+         <!--Email template -->
+        <record id="email_template_edi_payslip" model="mail.template">
+            <field name="name">Hr Payslip - Send by Email</field>
+            <field name="email_from">${object.employee_id.user_id.email}</field>
+            <field name="subject">PaySlip</field>
+            <field name="partner_to">${object.employee_id.user_id.partner_id.id}</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="hr_payroll.action_report_payslip"/>
+            <field name="report_name">${object.employee_id.name}</field>
+            <field name="lang">${object.employee_id.user_id.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				
+				    <p>Dear ${object.employee_id.name},</p>
+				    
+				    <p>PFA, </p>
+				    
+				    &nbsp;&nbsp;<p> Find the Payslip for this ${object.date_from}</p></br>
+				            
+				    <br>
+				    <br/> 
+				    <p> With Regards,</p>
+				    <p> HR Manager. <p/>
+				
+				
+				   
+				</div>
+	       ]]></field>
+	        </record>
+        
+
+
+    </data>
+</odoo>

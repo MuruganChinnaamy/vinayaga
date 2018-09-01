@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+	
+	
+	
+	<record model="ir.ui.view" id="view_view_hr_payslip_form_inherit_pappaya">
+	    <field name="name">hr.payslip.form.form.view.inherit</field>
+	    <field name="model">hr.payslip</field>
+	    <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+	    <field name="arch" type="xml">
+	    	
+	        <field name="state" position="before">
+            	<button name="action_payslip_send" type="object" string="send Mail" class="oe_highlight"/>
+            </field>
+	      
+	 </field>
+    </record>
+	
+	
+	
+	<record id="hr_payslip_run_filter_inherit_pappaya" model="ir.ui.view">
+        <field name="name">hr.payslip.run.search.inheit.papapya</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_filter"/>
+        <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="company_id"/>
+                </field>
+        </field>
+    </record>
+
+    <record id="hr_payslip_run_tree_pappaya_inherit" model="ir.ui.view">
+        <field name="name">hr.payslip.run.tree.pappaya.inherit</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree"/>
+        <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="company_id"/>
+                </field>
+        </field>
+    </record>
+
+   <record id="hr_payslip_run_form_inheri_pappaya" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.inherit.pappaya</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+          <field name="credit_note" position="before">
+          	<field name="company_id" required="1"/>
+          </field>
+                 <field name="state" position="before">
+<!--                  	<button name="generate_report_action" type="object" string="WPS Generation" class="oe_highlight"/>
+ -->                 	<button name="send_email_bulk" type="object" string="Send Mail" class="oe_highlight"/>
+                 </field>
+        </field>
+    </record>
+    
+    <record id="view_hr_payslip_by_employees_inherit" model="ir.ui.view">
+            <field name="name">hr_payroll_payslip_employees_inherit</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form//group[1]" position="replace">
+            		<group>
+            			<label colspan="4" nolabel="1" string="This wizard will generate payslips for all employee(s) based on the dates and company specified on Payslips Run." />
+            		</group>
+            	</xpath>
+            	<xpath expr="//form//group[2]" position="replace">
+            		<field name="employee_ids" invisible="1"/>
+            	</xpath>
+            </field>
+        </record>
+    
+	<menuitem action="hr_payroll.action_view_hr_payslip_form" id="hr_payroll.menu_department_tree" parent="hr_payroll.menu_hr_payroll_root" groups="hr_payroll.group_hr_payroll_user,base.group_user"/>
+	
+	
+	</data>
+</odoo>

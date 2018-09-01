@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pappaya_employee_qualification,pappaya.employee.qualification,model_pappaya_employee_qualification,base.group_user,1,0,0,0
+,,,,,,,
+access_pappaya_employee_experience,pappaya.employee.experience,model_pappaya_employee_experience,base.group_user,1,1,1,1
+,,,,,,,
+access_res_partner_bank_group_user,res.partner.bank.group.user,model_res_partner_bank,base.group_user,1,0,0,0

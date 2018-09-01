@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+	<!-- Payslip Report-->
+ 	<template id="report_payslip_inherit" inherit_id="hr_payroll.report_payslip">
+		<xpath expr="//t[@t-call='web.html_container']" position="replace">
+				<t t-call="web.internal_layout">
+				<t t-foreach="docs" t-as="o">
+					<div class="page">
+	                            <div class="row">
+	                                <div class="col-xs-2" style="text-align:center;">
+	                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="height:110px;max-height:130px;width:110px;max-width:130px;margin-left:20px;"/>
+	                                </div>
+	                                <div class="col-xs-10">
+	                                    <div style="font-weight:700;font-size:20px; text-align:center;">
+	                                        <t t-if="o.company_id.name"> <strong><span t-esc="o.company_id.name"/></strong></t>
+	                                    </div>
+	                                    <div style="font-size:15px; text-align:center;">
+	                                        <t t-if="o.company_id.partner_id.street"> <span t-esc="o.company_id.partner_id.street"/></t>
+	                                        <t t-if="o.company_id.partner_id.street2"> <span t-esc="o.company_id.partner_id.street2"/></t>
+	                                        <t t-if="o.company_id.partner_id.city"> <span t-esc="o.company_id.partner_id.city"/> </t>-
+	                                        <t t-if="o.company_id.partner_id.zip"> <span t-esc="o.company_id.partner_id.zip"/></t>
+	                                    </div>
+	                                    <div style="font-size:15px; text-align:center;">
+	                                        <t t-if="o.company_id.partner_id.phone"> Tel: <span t-esc="o.company_id.partner_id.phone"/>,</t>
+	                                        <t t-if="o.company_id.partner_id.email"> Email: <span t-esc="o.company_id.partner_id.email"/></t>
+	                                    </div>
+	                                    <div style="font-size:14px; text-align:center;">
+	                                        <t t-if="o.company_id.partner_id.website"> Website: <span t-esc="o.company_id.partner_id.website"/></t>
+	                                    </div>
+	                                </div>
+	                            </div>
+						<h2>
+							<div class="text-center" style="font-size: 14px;">
+								<b>
+									<span t-field="o.name" />
+								</b>
+							</div>
+						</h2>
+
+						<table class="table table-condensed table-bordered">
+							<tr>
+								<td>
+									<strong>Employee Name</strong>
+								</td>
+								<td>
+									<span t-field="o.employee_id.name" />
+								</td>
+								<td>
+									<strong>Employee ID</strong>
+								</td>
+								<td>
+									<!-- <span t-field="o.employee_id.emp_no" /> -->Card Number
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Designation</strong>
+								</td>
+								<td>
+									<span t-field="o.employee_id.job_id.name" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Department</strong>
+								</td>
+								<td>
+									<span t-field="o.employee_id.department_id.name" />
+								</td>
+								
+								<td>
+									<strong>Branch</strong>
+								</td>
+								<td>
+									<span t-field="o.employee_id.company_id" />
+								</td>
+							</tr>
+						</table>
+
+						<table class="table table-condensed">
+							<t t-set="total_deduction" t-value="0"/>
+							<t t-set="total_allowance" t-value="0"/>
+							<tr style="text-align:right;" width="50%">
+								<td>
+									<table class="table table-condensed">
+										<thead>
+											<tr style="text-align:right;border-bottom: 2px solid black;"
+												width="50%">
+												<th style="text-align:left;" width="50%">Earnings</th>
+												<th style="text-align:right;" width="50%">Amount IND</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr style="text-align:right;" width="50%"
+												t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="p">
+												<td style="text-align:left;" width="50%"
+													t-if="p.category_id.name in ['Allowance','Basic']">
+													<span t-field="p.code" />
+												</td>
+												<td style="text-align:right;" width="50%"
+													t-if="p.category_id.name in ['Allowance','Basic']">
+													<span t-esc="'{0:,.2f}'.format(p.amount)" />
+													<t t-set="total_allowance" t-value="total_allowance+p.amount"/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td>
+									<table class="table table-condensed">
+										<thead>
+											<tr style="text-align:right;border-bottom: 2px solid black;"
+												width="50%">
+												<th style="text-align:left;" width="50%">Deductions</th>
+												<th style="text-align:right;" width="50%">Amount IND</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr style="text-align:right;" width="50%"
+												t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+												t-as="p">
+												<td style="text-align:left;" width="50%"
+													t-if="p.category_id.name in ['Deduction']">
+													<span t-field="p.code" />
+												</td>
+												<td style="text-align:right;" width="50%"
+													t-if="p.category_id.name in ['Deduction']">
+													<span t-esc="'{0:,.2f}'.format(p.amount)" />
+													<t t-set="total_deduction" t-value="total_deduction+p.amount"/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr style="text-align:right;" width="50%">
+								<td>
+									<table class="table table-condensed">
+										<tr>
+											<th style="text-align:left;" width="50%">
+												<b>
+													<span style="font-weight: normal !important;">Gross Earnings</span>
+												</b>
+											</th>
+											<th style="text-align:right;" width="50%">
+												<t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="p">
+													<t t-if="p.category_id.code == 'GROSS'">
+														<b>
+															<span style="font-weight: normal !important;">
+																<span t-esc="'{0:,.2f}'.format(p.amount)" />
+															</span>
+														</b>
+													</t>
+												</t>
+											</th>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table class="table table-condensed">
+										<tr>
+											<th style="text-align:left;" width="50%">
+												<b>
+													<span style="font-weight: normal !important;">Total Deductions</span>
+												</b>
+											</th>
+											<th style="text-align:right;" width="50%">
+												<b>
+													<span style="font-weight: normal !important;">
+														<span t-esc="'{0:,.2f}'.format(total_deduction)" />
+													</span>
+												</b>
+											</th>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<table class="table table-condensed">
+									<tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+										t-as="p">
+										<t t-if="p.category_id.code == 'NET'">
+											<th style="text-align:left;" width="50%">
+												<b>
+													<span style="font-weight: normal !important;">
+														<span t-esc="o.net_amount_in_words('net_amount_words')" />
+													</span>
+												</b>
+											</th>
+											<th style="text-align:right;" width="50%">
+												<b>
+													<span style="font-weight: normal !important;">
+														<span
+															t-esc="'{0:,.2f}'.format(o.net_amount_in_words('net_amount'))" />
+													</span>
+												</b>
+											</th>
+										</t>
+									</tr>
+								</table>
+							</tr>
+						</table>
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<p class="text-left">
+							<strong>This is an Electronic generated payslip and signature not
+								required</strong>
+						</p>
+					</div>
+					
+					<div class="footer">
+						<table>
+							<thead>
+								<tr>
+									<td class="col-xs-5 pull-left" style="font-size:12px;">
+										<strong>Dated On: </strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%b/%Y %H:%M:%S')"/>
+									</td>
+									<td class="col-xs-2 pull-right" style="font-size:12px;">
+										<strong>Generated By: </strong> <span t-esc="user.name"/>
+									</td>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					</t>
+				</t>
+		</xpath>
+	</template> 
+
+	<record id="paperformat_payslip_report" model="report.paperformat">
+		<field name="name">European A4 - Payslip</field>
+		<field name="default" eval="True" />
+		<field name="format">A4</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">10</field>
+		<field name="margin_bottom">10</field>
+		<field name="margin_left">10</field>
+		<field name="margin_right">10</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">35</field>
+		<field name="dpi">80</field>
+	</record>
+
+	
+	<!--Payslip Details-->
+	
+
+
+	<!-- Extra print option - Payslip Details -> Menu false-->
+	<report
+		id="hr_payroll.payslip_details_report"
+		model="hr.payslip"
+		string="PaySlip Details"
+		report_type="qweb-pdf"
+		name="hr_payroll.report_payslipdetails"
+		file="hr_payroll.report_payslipdetails"
+		print_report_name="'Payslip Details - %s' % (object.employee_id.name)"
+		menu="False"
+	/>
+
+	
+
+	<!--Paperformat-->
+	<record id="paperformat_advice_report" model="report.paperformat">
+		<field name="name">European A4 - Payment Advice</field>
+		<field name="default" eval="True" />
+		<field name="format">A4</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">10</field>
+		<field name="margin_bottom">10</field>
+		<field name="margin_left">10</field>
+		<field name="margin_right">10</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">50</field>
+		<field name="dpi">80</field>
+	</record>
+
+	
+</odoo>
