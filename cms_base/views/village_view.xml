@@ -26,10 +26,10 @@
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="field_officers" widget="many2many_tags"/>
+                            <field name="field_officers" widget="many2many_tags" required="1"/>
 		                </group>
 		                <group>
-		                	<field name="company_id"/>
+		                	<field name="company_id" domain="[('parent_id','!=', False)]" required="1"/>
 		                    <field name="description"/>
                         </group>
                     </group>
