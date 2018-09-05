@@ -15,6 +15,7 @@
     'depends': ['cms_base','sale','purchase'],
     'data': [
         
+        "views/assets.xml",
         'views/daily_attendance_view.xml',
         #'menu/menu.xml'
         

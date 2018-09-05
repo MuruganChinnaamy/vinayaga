@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Extending existing kanban view of employee to add number of Sales order-->
+    <record id="hr_kanban_view_employees" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.task</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <ul position="before">
+                <div class="mb4" t-if="record.sales_order_count.raw_value" groups="base.group_show_sales_order_on_employee">
+                    <a name="display_employee_sales_order" type="object">
+                        Sales Order: <field name="sales_order_count"/> ( <field name="sales_order_stages"/> )
+                    </a>
+                </div>
+            </ul>
+        </field>
+    </record>
+
+    <!-- Extending existing form view of employee to add number of  Sales order -->
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.task</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='public']/group[last()]" position="after">
+                <group string="Sales" groups="base.group_show_sales_order_on_employee">
+                    <field name="sales_order_stages" string = "Order Status"/>
+                </group>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="display_employee_sales_order"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="object"
+                            groups="base.group_show_sales_order_on_employee">
+                            <field name="sales_order_count" widget="statinfo" string="Sales Order" groups="base.group_show_sales_order_on_employee"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

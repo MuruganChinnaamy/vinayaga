@@ -1,0 +1,15 @@
+// Listing
+#wrapper, .openerp {
+    .oe-view-manager-view-list {
+        margin-top: 20px;
+        .oe_list {
+            &:extend(.ibox-content);
+            tr:nth-child(odd) {
+                background: #f9f9f9;
+            }
+        }
+    }
+    .oe_list_content > tbody > tr:nth-child(odd) {
+        background: #f9f9f9;
+    }
+}

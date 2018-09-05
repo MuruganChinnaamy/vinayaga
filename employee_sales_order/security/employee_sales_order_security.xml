@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="base.group_show_sales_order_on_employee" model="res.groups">
+        <field name="name">See sales order on employee</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="comment">See sales order on employee</field>
+    </record>
+</data>
+</odoo>
