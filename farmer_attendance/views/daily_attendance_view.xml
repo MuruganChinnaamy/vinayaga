@@ -27,7 +27,7 @@
 								<field name="closing_km" required="1"/>
 							</group>
 						</group>
-						<group string="Grand Total">
+						<!-- <group string="Grand Total">
 							<group>
 								<field name="total_first_grade" />
 								
@@ -42,12 +42,11 @@
 								<field name="total_fourth_grade" />
 								<field name="total_six_grade" />
 							</group>
-						</group>
+						</group> -->
 						
 						
-						<notebook>
-							<page string="Farmer's Attendance Line">
-								<field name="lines">
+							<group col="4" string="Farmer's Attendance Line">
+								<field name="lines" class="fixed_table" nolabel="1" colspan="4">
 									<tree editable="bottom">
 										<field name="attendance_id" invisible="1" />
 										<field name="farmer_id" />
@@ -60,8 +59,21 @@
 										<field name="total" />
 									</tree>
 								</field>
-							</page>
-						</notebook>
+								</group>
+								<table class="fixed_table oe_list_content">
+									<tr>
+										<td><b><h2>Total</h2></b></td>
+										<td></td>
+										<td ><field name="total_first_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total_second_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total_third_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total_fourth_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total_fifth_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total_six_grade" nolabel="1"/></td>
+										<td class="oe_number"><field name="total" nolabel="1"/></td>
+										
+									</tr>
+								</table>
 					</sheet>
 				</form>
 			</field>

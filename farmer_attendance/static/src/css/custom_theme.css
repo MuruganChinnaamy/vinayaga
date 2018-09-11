@@ -1,7 +1,7 @@
 .fixed_table .oe_list_content, table.fixed_table{ table-layout:fixed;}
-.fixed_table{ padding:0 !important}
+.fixed_table{ padding:30px !important}
 table.fixed_table{ position: relative; top: -10px}
-table.fixed_table td{ font-weight:bold; font-size:14px; background: #e6e6e6}
-.fixed_table .oe_list.o_list_view{ padding:0 !important}
+table.fixed_table td{ font-weight:bold; font-size:14px; background: #e6e6e6;padding: 25px;}
+.fixed_table .oe_list.o_list_view{ padding:25px !important}
 
-.fixed_table .oe_list_content th{padding: 6px 0px 8px 6px !important;}
+.fixed_table .oe_list_content th{padding: 25px !important;}

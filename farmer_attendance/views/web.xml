@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<template id="assets_backend_farmer_attendance" name="farmer_attendance assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+            	<link rel="stylesheet" type="text/css" href="/farmer_attendance/static/src/less/custom.less"/>
+				<link rel="stylesheet" type="text/css" href="/farmer_attendance/static/src/css/custom_theme.css"/>
+            </xpath> 
+        </template>
+    </data>
+</odoo>

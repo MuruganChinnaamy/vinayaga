@@ -5,6 +5,9 @@ var core = require('web.core');
 var ListRenderer = require('web.ListRenderer');
 var _t = core._t;
 
+console.log(core,"corecorecorecore")
+console.log(ListRenderer,"ListRendererListRendererListRenderer")
+
 ListRenderer.include({
 	_getNumberOfCols: function () {
 		var columns = this._super();
@@ -36,14 +39,10 @@ ListRenderer.include({
             $tbody.append(self._renderGroupRow(group, groupLevel));
             if (group.data.length) {
                 result.push($tbody);
-                // render an opened group
                 if (group.groupedBy.length) {
-                    // the opened group contains subgroups
                     result = result.concat(self._renderGroups(group.data, groupLevel + 1));
                 } else {
-                    // the opened group contains records
                     var $records = _.map(group.data, function (record,index) {
-                    	//Nilesh
                     	if (_self.mode !== 'edit' || _self.hasSelectors){
                     		return self._renderRow(record).prepend($('<th>').html(index+1)).prepend($('<td>'));
                     	}
@@ -76,7 +75,6 @@ ListRenderer.include({
     			$header.find("tr").prepend($('<th>').html('#'));
     		}
     	}
-    	//$header.find("tr").prepend($('<th>').html('#'));
     	return $header;
     },
     _renderRow: function (record) {
@@ -90,24 +88,6 @@ ListRenderer.include({
     	return $row;
     	
     },
-    /*_renderRows: function () {
-        var $rows = this._super();
-        var total_rows = $rows.length - 1;
-        var _self = this;
-        if (this.mode !== 'edit' || this.hasSelectors){
-        	$.each($rows,function(index){
-	        	var $row = $rows[index];
-	        	if (total_rows===index && _self.addCreateLine){
-	        		$row.prepend($('<th>').html('&nbsp;'));
-	        	}
-	        	else{
-	        		$row.prepend($('<th>').html(index+1));
-	        	}
-	        	});
-        }
-        
-        return $rows;
-    },*/
     
 }); 
 

@@ -12,15 +12,14 @@
     """,
     'author': 'Murugan',
     'website': 'http://www.cmshitech.com',
-    'depends': ['cms_base','sale','purchase'],
+    'depends': ['cms_base','sale','purchase','web'],
     'data': [
         
-        "views/assets.xml",
         'views/daily_attendance_view.xml',
-        #'menu/menu.xml'
+        'views/web.xml',
         
     ],
-    'qweb': ['static/src/xml/help_template.xml'],
+    "qweb": ["static/src/xml/web.xml"],
     'installable': True,
     'auto_install': False,
     'application': True,
