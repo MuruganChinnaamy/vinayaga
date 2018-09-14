@@ -12,12 +12,13 @@
     """,
     'author': 'CMS Tech',
     'website': 'http://www.cmstech.com',
-    'depends': ['base','hr','sale_management','purchase','account_invoicing'],
+    'depends': ['base','hr','product','sale_management','purchase','account_invoicing'],
     'data': [
         
         'views/inherited_res_company_view.xml',
         'views/inherited_res_user_view.xml',
         'views/village_view.xml',
+        'views/product_view.xml',
         'menu/menu.xml'
         
     ],
