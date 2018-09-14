@@ -12,7 +12,7 @@
     """,
     'author': 'CMS Tech',
     'website': 'http://www.cmstech.com',
-    'depends': ['base','hr'],
+    'depends': ['base','hr','sale_management','purchase','account_invoicing'],
     'data': [
         
         'views/inherited_res_company_view.xml',
