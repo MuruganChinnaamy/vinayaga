@@ -9,15 +9,45 @@
             <field name="category_ids" position="after">
 	       		<group name="Farmer Details">
 		       		<group>
-		       			<field name="employee_id" />
-		        		<field name="employee_type" required="1"/>
-		        		<field name="branch_id" domain="[('parent_id','!=',False)]" required="1" />
-		        		<field name="village_id" required="1"/>
+		       			<field name="branch_id" domain="[('parent_id','!=',False)]" required="1" />
+		       			<field name="employee_id" readonly="1"/>
 		        		<field name="field_officers" widget="many2many_tags" required="1"/>
+		       		</group>
+		       		<group>
+		       			<field name="village_id" required="1"/>
+		        		<field name="employee_type" required="1"/>
 		       		</group>
 	       		</group>
 	       	</field>
             </field>
         </record>
+    </data>
+    
+    <data noupdate="1">
+        <!-- Sequences for op.admission -->
+        <record id="cms_employee_new" model="ir.sequence">
+            <field name="name">Employee</field>
+            <field name="code">cms.employee.new</field>
+            <field name="prefix">EMP</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False" />
+        </record>
+        
+        <record id="cms_labour_new" model="ir.sequence">
+            <field name="name">Labour</field>
+            <field name="code">cms.labour.new</field>
+            <field name="prefix">LAB</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False" />
+        </record>
+        
+        <record id="cms_farmer_new" model="ir.sequence">
+            <field name="name">Farmer</field>
+            <field name="code">cms.farmer.new</field>
+            <field name="prefix">FAR</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False" />
+        </record>
+        
     </data>
 </odoo>
