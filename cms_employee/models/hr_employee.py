@@ -51,6 +51,21 @@ class HrEmployee(models.Model):
                                             'image':record.image,
                                             'company_id':record.branch_id.id
                                             })
+            record.partner_id = partner.id
+            return partner
+        
+    @api.multi
+    def partner_write(self, partner):
+        print (self,partner,"rrrrrrrrrrrrrrrr")
+        for record in self:
+            partner.write({
+                            'company_type':'person',
+                            'employee_id':record.id,
+                            'employee_type':record.employee_type,
+                            'name':record.name,
+                            'image':record.image,
+                            'company_id':record.branch_id.id
+                            })
             return partner
         
                 
@@ -61,7 +76,15 @@ class HrEmployee(models.Model):
         vals['employee_id'] = res.employee_id
         partner = res.partner_create()
         vals['partner_id'] = partner.id
-        return res  
+        return res 
+    
+    @api.multi
+    def write(self, vals):
+        res = super(HrEmployee, self).write(vals)
+        partner = self.partner_id
+        self.partner_write(partner)
+        return res
+         
     
     
 class ResPartner(models.Model):

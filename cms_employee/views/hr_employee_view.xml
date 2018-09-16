@@ -17,6 +17,7 @@
 		       			<field name="village_id" required="1"/>
 		        		<field name="employee_type" required="1"/>
 		        		<field name="field_manager" attrs="{'invisible':[('employee_type','!=', 'employee')]}"/>
+		        		<field name="partner_id" readonly="1"/>
 		       		</group>
 	       		</group>
 	       	</field>
